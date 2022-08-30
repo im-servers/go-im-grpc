@@ -1,7 +1,8 @@
 syntax = "proto3";
 
 package im_server;
-option go_package="./im_server";
+option go_package = ".";
+
 
 message SnedMsgReq {
   // 用户的deviceToken,用于确定是哪条连接
