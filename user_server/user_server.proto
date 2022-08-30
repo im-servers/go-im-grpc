@@ -33,6 +33,7 @@ message CreateUserReq{
   string phone = 4;
   int64  age = 5;
   string password = 6;
+  string deviceID = 7;
 }
 
 
@@ -45,6 +46,7 @@ message CreateUserReply{
 message loginReq{
   string phone = 1;
   string password = 2;
+  string deviceID = 3;
 }
 
 
