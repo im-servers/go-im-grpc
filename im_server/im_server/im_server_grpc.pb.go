@@ -4,7 +4,7 @@
 // - protoc             v3.21.5
 // source: types/im_server.proto
 
-package imserver
+package im_server
 
 import (
 	context "context"
