@@ -14,14 +14,7 @@ message SnedMsgReq {
 message EmptyResp {
 }
 
-message SnedCMDMsgReq {
-  // 用户的deviceToken,用于确定是哪条连接
-  repeated string deviceTokens = 1;
-  // 消息体
-   bytes Msg = 2;
-}
 
 service IMServer {
   rpc snedMsg(SnedMsgReq) returns (EmptyResp);
-  rpc snedCMDMsg(SnedCMDMsgReq) returns (EmptyResp);
 }
