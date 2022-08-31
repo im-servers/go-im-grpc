@@ -1,14 +1,14 @@
 syntax = "proto3";
 
 package im_server;
-option go_package = ".";
+option go_package = "./im_server";
 
 
 message SnedMsgReq {
   // 用户的deviceToken,用于确定是哪条连接
   repeated string deviceTokens = 1;
   // 消息体
-  repeated bytes Msg = 2;
+   bytes Msg = 2;
 }
 
 message EmptyResp {
@@ -18,7 +18,7 @@ message SnedCMDMsgReq {
   // 用户的deviceToken,用于确定是哪条连接
   repeated string deviceTokens = 1;
   // 消息体
-  repeated bytes Msg = 2;
+   bytes Msg = 2;
 }
 
 service IMServer {
