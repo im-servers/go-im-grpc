@@ -14,6 +14,7 @@ message CreateChatReq {
   int32 type = 2;
   // 需要加入群的用户
   repeated int64 Uids = 3;
+  string  token = 4;
 }
 
 message CreateChatResp {
@@ -34,6 +35,7 @@ message RecentChatsReq {
   int64 nextSeq = 1;
   int64 cnt = 2;
   string order = 3;
+  string  token = 4;
 }
 
 message RecentChatsResp {
@@ -48,17 +50,20 @@ message RecentChatsResp {
 message JoinToChatReq {
   int64 chatID = 1;
   repeated int64 Uids = 2;
+  string  token = 3;
 }
 
 message RemoveMemberFromChatReq {
   int64 chatID = 1;
   int64 Uid = 2;
+  string  token = 3;
 }
 
 message GetChatMsgListReq {
   int64 chatID = 1;
   int64 next_seq = 2;
   int64 cnt = 3;
+  string  token = 4;
 }
 
 message GetChatMsgListResp {
@@ -71,6 +76,7 @@ message GetMemberListReq {
   int64 chatID = 1;
   int64 nextSeq = 2;
   int64 cnt = 3;
+  string  token = 4;
 }
 
 message GetMemberListResp {
