@@ -92,7 +92,7 @@ message Member {
   int32 role = 3;
 }
 
-service chatserver {
+service chat {
   rpc createChat(CreateChatReq) returns (CreateChatResp);
   rpc recentChats(RecentChatsReq) returns (RecentChatsResp);
   rpc joinToChat(JoinToChatReq) returns(EmptyResp);

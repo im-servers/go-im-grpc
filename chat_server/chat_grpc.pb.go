@@ -18,10 +18,10 @@ import (
 // Requires gRPC-Go v1.32.0 or later.
 const _ = grpc.SupportPackageIsVersion7
 
-// ChatserverClient is the client API for Chatserver service.
+// ChatClient is the client API for Chat service.
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
-type ChatserverClient interface {
+type ChatClient interface {
 	CreateChat(ctx context.Context, in *CreateChatReq, opts ...grpc.CallOption) (*CreateChatResp, error)
 	RecentChats(ctx context.Context, in *RecentChatsReq, opts ...grpc.CallOption) (*RecentChatsResp, error)
 	JoinToChat(ctx context.Context, in *JoinToChatReq, opts ...grpc.CallOption) (*EmptyResp, error)
@@ -30,254 +30,254 @@ type ChatserverClient interface {
 	GetMemberList(ctx context.Context, in *GetMemberListReq, opts ...grpc.CallOption) (*GetMemberListResp, error)
 }
 
-type chatserverClient struct {
+type chatClient struct {
 	cc grpc.ClientConnInterface
 }
 
-func NewChatserverClient(cc grpc.ClientConnInterface) ChatserverClient {
-	return &chatserverClient{cc}
+func NewChatClient(cc grpc.ClientConnInterface) ChatClient {
+	return &chatClient{cc}
 }
 
-func (c *chatserverClient) CreateChat(ctx context.Context, in *CreateChatReq, opts ...grpc.CallOption) (*CreateChatResp, error) {
+func (c *chatClient) CreateChat(ctx context.Context, in *CreateChatReq, opts ...grpc.CallOption) (*CreateChatResp, error) {
 	out := new(CreateChatResp)
-	err := c.cc.Invoke(ctx, "/chat_server.chatserver/createChat", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/chat_server.chat/createChat", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *chatserverClient) RecentChats(ctx context.Context, in *RecentChatsReq, opts ...grpc.CallOption) (*RecentChatsResp, error) {
+func (c *chatClient) RecentChats(ctx context.Context, in *RecentChatsReq, opts ...grpc.CallOption) (*RecentChatsResp, error) {
 	out := new(RecentChatsResp)
-	err := c.cc.Invoke(ctx, "/chat_server.chatserver/recentChats", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/chat_server.chat/recentChats", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *chatserverClient) JoinToChat(ctx context.Context, in *JoinToChatReq, opts ...grpc.CallOption) (*EmptyResp, error) {
+func (c *chatClient) JoinToChat(ctx context.Context, in *JoinToChatReq, opts ...grpc.CallOption) (*EmptyResp, error) {
 	out := new(EmptyResp)
-	err := c.cc.Invoke(ctx, "/chat_server.chatserver/joinToChat", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/chat_server.chat/joinToChat", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *chatserverClient) RemoveMemberFromChat(ctx context.Context, in *RemoveMemberFromChatReq, opts ...grpc.CallOption) (*EmptyResp, error) {
+func (c *chatClient) RemoveMemberFromChat(ctx context.Context, in *RemoveMemberFromChatReq, opts ...grpc.CallOption) (*EmptyResp, error) {
 	out := new(EmptyResp)
-	err := c.cc.Invoke(ctx, "/chat_server.chatserver/removeMemberFromChat", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/chat_server.chat/removeMemberFromChat", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *chatserverClient) GetChatMsgList(ctx context.Context, in *GetChatMsgListReq, opts ...grpc.CallOption) (*GetChatMsgListResp, error) {
+func (c *chatClient) GetChatMsgList(ctx context.Context, in *GetChatMsgListReq, opts ...grpc.CallOption) (*GetChatMsgListResp, error) {
 	out := new(GetChatMsgListResp)
-	err := c.cc.Invoke(ctx, "/chat_server.chatserver/getChatMsgList", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/chat_server.chat/getChatMsgList", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *chatserverClient) GetMemberList(ctx context.Context, in *GetMemberListReq, opts ...grpc.CallOption) (*GetMemberListResp, error) {
+func (c *chatClient) GetMemberList(ctx context.Context, in *GetMemberListReq, opts ...grpc.CallOption) (*GetMemberListResp, error) {
 	out := new(GetMemberListResp)
-	err := c.cc.Invoke(ctx, "/chat_server.chatserver/getMemberList", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/chat_server.chat/getMemberList", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-// ChatserverServer is the server API for Chatserver service.
-// All implementations must embed UnimplementedChatserverServer
+// ChatServer is the server API for Chat service.
+// All implementations must embed UnimplementedChatServer
 // for forward compatibility
-type ChatserverServer interface {
+type ChatServer interface {
 	CreateChat(context.Context, *CreateChatReq) (*CreateChatResp, error)
 	RecentChats(context.Context, *RecentChatsReq) (*RecentChatsResp, error)
 	JoinToChat(context.Context, *JoinToChatReq) (*EmptyResp, error)
 	RemoveMemberFromChat(context.Context, *RemoveMemberFromChatReq) (*EmptyResp, error)
 	GetChatMsgList(context.Context, *GetChatMsgListReq) (*GetChatMsgListResp, error)
 	GetMemberList(context.Context, *GetMemberListReq) (*GetMemberListResp, error)
-	mustEmbedUnimplementedChatserverServer()
+	mustEmbedUnimplementedChatServer()
 }
 
-// UnimplementedChatserverServer must be embedded to have forward compatible implementations.
-type UnimplementedChatserverServer struct {
+// UnimplementedChatServer must be embedded to have forward compatible implementations.
+type UnimplementedChatServer struct {
 }
 
-func (UnimplementedChatserverServer) CreateChat(context.Context, *CreateChatReq) (*CreateChatResp, error) {
+func (UnimplementedChatServer) CreateChat(context.Context, *CreateChatReq) (*CreateChatResp, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateChat not implemented")
 }
-func (UnimplementedChatserverServer) RecentChats(context.Context, *RecentChatsReq) (*RecentChatsResp, error) {
+func (UnimplementedChatServer) RecentChats(context.Context, *RecentChatsReq) (*RecentChatsResp, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method RecentChats not implemented")
 }
-func (UnimplementedChatserverServer) JoinToChat(context.Context, *JoinToChatReq) (*EmptyResp, error) {
+func (UnimplementedChatServer) JoinToChat(context.Context, *JoinToChatReq) (*EmptyResp, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method JoinToChat not implemented")
 }
-func (UnimplementedChatserverServer) RemoveMemberFromChat(context.Context, *RemoveMemberFromChatReq) (*EmptyResp, error) {
+func (UnimplementedChatServer) RemoveMemberFromChat(context.Context, *RemoveMemberFromChatReq) (*EmptyResp, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method RemoveMemberFromChat not implemented")
 }
-func (UnimplementedChatserverServer) GetChatMsgList(context.Context, *GetChatMsgListReq) (*GetChatMsgListResp, error) {
+func (UnimplementedChatServer) GetChatMsgList(context.Context, *GetChatMsgListReq) (*GetChatMsgListResp, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetChatMsgList not implemented")
 }
-func (UnimplementedChatserverServer) GetMemberList(context.Context, *GetMemberListReq) (*GetMemberListResp, error) {
+func (UnimplementedChatServer) GetMemberList(context.Context, *GetMemberListReq) (*GetMemberListResp, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetMemberList not implemented")
 }
-func (UnimplementedChatserverServer) mustEmbedUnimplementedChatserverServer() {}
+func (UnimplementedChatServer) mustEmbedUnimplementedChatServer() {}
 
-// UnsafeChatserverServer may be embedded to opt out of forward compatibility for this service.
-// Use of this interface is not recommended, as added methods to ChatserverServer will
+// UnsafeChatServer may be embedded to opt out of forward compatibility for this service.
+// Use of this interface is not recommended, as added methods to ChatServer will
 // result in compilation errors.
-type UnsafeChatserverServer interface {
-	mustEmbedUnimplementedChatserverServer()
+type UnsafeChatServer interface {
+	mustEmbedUnimplementedChatServer()
 }
 
-func RegisterChatserverServer(s grpc.ServiceRegistrar, srv ChatserverServer) {
-	s.RegisterService(&Chatserver_ServiceDesc, srv)
+func RegisterChatServer(s grpc.ServiceRegistrar, srv ChatServer) {
+	s.RegisterService(&Chat_ServiceDesc, srv)
 }
 
-func _Chatserver_CreateChat_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _Chat_CreateChat_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(CreateChatReq)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(ChatserverServer).CreateChat(ctx, in)
+		return srv.(ChatServer).CreateChat(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/chat_server.chatserver/createChat",
+		FullMethod: "/chat_server.chat/createChat",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(ChatserverServer).CreateChat(ctx, req.(*CreateChatReq))
+		return srv.(ChatServer).CreateChat(ctx, req.(*CreateChatReq))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _Chatserver_RecentChats_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _Chat_RecentChats_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(RecentChatsReq)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(ChatserverServer).RecentChats(ctx, in)
+		return srv.(ChatServer).RecentChats(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/chat_server.chatserver/recentChats",
+		FullMethod: "/chat_server.chat/recentChats",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(ChatserverServer).RecentChats(ctx, req.(*RecentChatsReq))
+		return srv.(ChatServer).RecentChats(ctx, req.(*RecentChatsReq))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _Chatserver_JoinToChat_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _Chat_JoinToChat_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(JoinToChatReq)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(ChatserverServer).JoinToChat(ctx, in)
+		return srv.(ChatServer).JoinToChat(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/chat_server.chatserver/joinToChat",
+		FullMethod: "/chat_server.chat/joinToChat",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(ChatserverServer).JoinToChat(ctx, req.(*JoinToChatReq))
+		return srv.(ChatServer).JoinToChat(ctx, req.(*JoinToChatReq))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _Chatserver_RemoveMemberFromChat_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _Chat_RemoveMemberFromChat_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(RemoveMemberFromChatReq)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(ChatserverServer).RemoveMemberFromChat(ctx, in)
+		return srv.(ChatServer).RemoveMemberFromChat(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/chat_server.chatserver/removeMemberFromChat",
+		FullMethod: "/chat_server.chat/removeMemberFromChat",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(ChatserverServer).RemoveMemberFromChat(ctx, req.(*RemoveMemberFromChatReq))
+		return srv.(ChatServer).RemoveMemberFromChat(ctx, req.(*RemoveMemberFromChatReq))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _Chatserver_GetChatMsgList_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _Chat_GetChatMsgList_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(GetChatMsgListReq)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(ChatserverServer).GetChatMsgList(ctx, in)
+		return srv.(ChatServer).GetChatMsgList(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/chat_server.chatserver/getChatMsgList",
+		FullMethod: "/chat_server.chat/getChatMsgList",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(ChatserverServer).GetChatMsgList(ctx, req.(*GetChatMsgListReq))
+		return srv.(ChatServer).GetChatMsgList(ctx, req.(*GetChatMsgListReq))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _Chatserver_GetMemberList_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _Chat_GetMemberList_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(GetMemberListReq)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(ChatserverServer).GetMemberList(ctx, in)
+		return srv.(ChatServer).GetMemberList(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/chat_server.chatserver/getMemberList",
+		FullMethod: "/chat_server.chat/getMemberList",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(ChatserverServer).GetMemberList(ctx, req.(*GetMemberListReq))
+		return srv.(ChatServer).GetMemberList(ctx, req.(*GetMemberListReq))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-// Chatserver_ServiceDesc is the grpc.ServiceDesc for Chatserver service.
+// Chat_ServiceDesc is the grpc.ServiceDesc for Chat service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
-var Chatserver_ServiceDesc = grpc.ServiceDesc{
-	ServiceName: "chat_server.chatserver",
-	HandlerType: (*ChatserverServer)(nil),
+var Chat_ServiceDesc = grpc.ServiceDesc{
+	ServiceName: "chat_server.chat",
+	HandlerType: (*ChatServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
 			MethodName: "createChat",
-			Handler:    _Chatserver_CreateChat_Handler,
+			Handler:    _Chat_CreateChat_Handler,
 		},
 		{
 			MethodName: "recentChats",
-			Handler:    _Chatserver_RecentChats_Handler,
+			Handler:    _Chat_RecentChats_Handler,
 		},
 		{
 			MethodName: "joinToChat",
-			Handler:    _Chatserver_JoinToChat_Handler,
+			Handler:    _Chat_JoinToChat_Handler,
 		},
 		{
 			MethodName: "removeMemberFromChat",
-			Handler:    _Chatserver_RemoveMemberFromChat_Handler,
+			Handler:    _Chat_RemoveMemberFromChat_Handler,
 		},
 		{
 			MethodName: "getChatMsgList",
-			Handler:    _Chatserver_GetChatMsgList_Handler,
+			Handler:    _Chat_GetChatMsgList_Handler,
 		},
 		{
 			MethodName: "getMemberList",
-			Handler:    _Chatserver_GetMemberList_Handler,
+			Handler:    _Chat_GetMemberList_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
