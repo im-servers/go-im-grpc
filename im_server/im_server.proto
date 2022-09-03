@@ -8,13 +8,13 @@ message SnedMsgReq {
   // 用户的deviceToken,用于确定是哪条连接
   repeated string deviceTokens = 1;
   // 消息体
-   bytes Msg = 2;
+   bytes msg = 2;
 }
 
 message EmptyResp {
 }
 
 
-service IMServer {
+service im {
   rpc snedMsg(SnedMsgReq) returns (EmptyResp);
 }

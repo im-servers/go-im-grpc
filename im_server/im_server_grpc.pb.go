@@ -18,86 +18,86 @@ import (
 // Requires gRPC-Go v1.32.0 or later.
 const _ = grpc.SupportPackageIsVersion7
 
-// IMServerClient is the client API for IMServer service.
+// ImClient is the client API for Im service.
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
-type IMServerClient interface {
+type ImClient interface {
 	SnedMsg(ctx context.Context, in *SnedMsgReq, opts ...grpc.CallOption) (*EmptyResp, error)
 }
 
-type iMServerClient struct {
+type imClient struct {
 	cc grpc.ClientConnInterface
 }
 
-func NewIMServerClient(cc grpc.ClientConnInterface) IMServerClient {
-	return &iMServerClient{cc}
+func NewImClient(cc grpc.ClientConnInterface) ImClient {
+	return &imClient{cc}
 }
 
-func (c *iMServerClient) SnedMsg(ctx context.Context, in *SnedMsgReq, opts ...grpc.CallOption) (*EmptyResp, error) {
+func (c *imClient) SnedMsg(ctx context.Context, in *SnedMsgReq, opts ...grpc.CallOption) (*EmptyResp, error) {
 	out := new(EmptyResp)
-	err := c.cc.Invoke(ctx, "/im_server.IMServer/snedMsg", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/im_server.im/snedMsg", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-// IMServerServer is the server API for IMServer service.
-// All implementations must embed UnimplementedIMServerServer
+// ImServer is the server API for Im service.
+// All implementations must embed UnimplementedImServer
 // for forward compatibility
-type IMServerServer interface {
+type ImServer interface {
 	SnedMsg(context.Context, *SnedMsgReq) (*EmptyResp, error)
-	mustEmbedUnimplementedIMServerServer()
+	mustEmbedUnimplementedImServer()
 }
 
-// UnimplementedIMServerServer must be embedded to have forward compatible implementations.
-type UnimplementedIMServerServer struct {
+// UnimplementedImServer must be embedded to have forward compatible implementations.
+type UnimplementedImServer struct {
 }
 
-func (UnimplementedIMServerServer) SnedMsg(context.Context, *SnedMsgReq) (*EmptyResp, error) {
+func (UnimplementedImServer) SnedMsg(context.Context, *SnedMsgReq) (*EmptyResp, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method SnedMsg not implemented")
 }
-func (UnimplementedIMServerServer) mustEmbedUnimplementedIMServerServer() {}
+func (UnimplementedImServer) mustEmbedUnimplementedImServer() {}
 
-// UnsafeIMServerServer may be embedded to opt out of forward compatibility for this service.
-// Use of this interface is not recommended, as added methods to IMServerServer will
+// UnsafeImServer may be embedded to opt out of forward compatibility for this service.
+// Use of this interface is not recommended, as added methods to ImServer will
 // result in compilation errors.
-type UnsafeIMServerServer interface {
-	mustEmbedUnimplementedIMServerServer()
+type UnsafeImServer interface {
+	mustEmbedUnimplementedImServer()
 }
 
-func RegisterIMServerServer(s grpc.ServiceRegistrar, srv IMServerServer) {
-	s.RegisterService(&IMServer_ServiceDesc, srv)
+func RegisterImServer(s grpc.ServiceRegistrar, srv ImServer) {
+	s.RegisterService(&Im_ServiceDesc, srv)
 }
 
-func _IMServer_SnedMsg_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _Im_SnedMsg_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(SnedMsgReq)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(IMServerServer).SnedMsg(ctx, in)
+		return srv.(ImServer).SnedMsg(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/im_server.IMServer/snedMsg",
+		FullMethod: "/im_server.im/snedMsg",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(IMServerServer).SnedMsg(ctx, req.(*SnedMsgReq))
+		return srv.(ImServer).SnedMsg(ctx, req.(*SnedMsgReq))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-// IMServer_ServiceDesc is the grpc.ServiceDesc for IMServer service.
+// Im_ServiceDesc is the grpc.ServiceDesc for Im service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
-var IMServer_ServiceDesc = grpc.ServiceDesc{
-	ServiceName: "im_server.IMServer",
-	HandlerType: (*IMServerServer)(nil),
+var Im_ServiceDesc = grpc.ServiceDesc{
+	ServiceName: "im_server.im",
+	HandlerType: (*ImServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
 			MethodName: "snedMsg",
-			Handler:    _IMServer_SnedMsg_Handler,
+			Handler:    _Im_SnedMsg_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
